@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+//importing the question
+import './question.dart';
+import './answer.dart';
 
 // void main() {
 //   runApp(MyApp());
@@ -7,30 +10,39 @@ import 'package:flutter/material.dart';
 void main() => runApp(MyApp());
 
 class MyApp extends StatefulWidget {
-
   @override
   State<StatefulWidget> createState() {
-    return MyAppState();
+    return _MyAppState();
   }
 }
 
-class MyAppState extends State<MyApp> { 
-  var questionIndex = 0;
-  
-  void answerQuestion() {
+class _MyAppState extends State<MyApp> {
+  var _questionIndex = 0;
+
+  void _answerQuestion() {
     setState(() {
-      questionIndex = questionIndex + 1;
+      _questionIndex = _questionIndex + 1;
     });
-    
-    print(questionIndex);
+
+    print(_questionIndex);
   }
 
   @override
   Widget build(BuildContext context) {
     var questions = [
-  'What is your favorite color?',
-  'What\'s is your favorite animal'
-  ];
+      {
+        'questionText': 'What is your favorite color?',
+        'answers': ['Black', 'Red', 'Green', 'White'],
+      },
+      {
+        'questionText': 'What\'s is your favorite animal?',
+        'answers': ['Rabbit', 'Snake', 'Elephant', 'Lion']
+      },
+      {
+        'questionText': 'What\s your favorite instructor',
+        'answers': ['Max', 'Max', 'Max', 'Max'],
+      }
+    ];
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
@@ -38,20 +50,15 @@ class MyAppState extends State<MyApp> {
         ),
         body: Column(
           children: [
-            Text(questions[questionIndex]),
-            RaisedButton(
-              child: Text('Answer1'),
-              //reason to pass the function with no parenthesis, is to pass the pointer. 
-              onPressed: answerQuestion,
+            Question(
+              //accessing the list -> accessing the map value (questionText)
+              questions[_questionIndex]['questionText'],
             ),
-            RaisedButton(
-              child: Text('Answer2'),
-              onPressed: () => print('Something else!'),
-            ),
-            RaisedButton(
-              child: Text('Answer3'),
-              onPressed: () { print('Option 3');},
-            ),
+            //acceesing the maps values and leeting map know its a list of strings
+            //spreading the list of values intead of nested list ...
+            ...(questions[_questionIndex]['answers'] as List<String>).map((answer){
+              return Answer(_answerQuestion, answer);
+            }).toList() //have to send to list because children is a list but needs to be spread
           ],
         ),
       ),
