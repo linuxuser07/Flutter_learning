@@ -9,11 +9,13 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Expenses App',
+      title: 'Personal Expenses',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        primarySwatch: Colors.purple,
+        accentColor: Colors.amber,
+        fontFamily: 'QuickSand',
       ),
-      home: MyHomePage(title: 'Expenses App'),
+      home: MyHomePage(title: 'Personal Expenses'),
     );
   }
 }
@@ -42,18 +44,18 @@ class _MyHomePageState extends State<MyHomePage> {
     ),
   ];
 
-  void _addNewTransaction(String txTitle, double txAmount){
+  void _addNewTransaction(String txTitle, double txAmount) {
     final newTx = Transaction(
-      title: txTitle,
-      amount: txAmount,
-      date: DateTime.now(),
-      id: DateTime.now().toString()
-    );
+        title: txTitle,
+        amount: txAmount,
+        date: DateTime.now(),
+        id: DateTime.now().toString());
 
     setState(() {
       _userTransactions.add(newTx);
     });
   }
+
   //this is used to add new transactions, using the show modal Bottom sheet
   //meaning tha the modal comes from the bottom so the text and amount can be added
   void _startAddNewTransaction(BuildContext ctx) {
@@ -61,9 +63,9 @@ class _MyHomePageState extends State<MyHomePage> {
       context: ctx,
       builder: (bctx) {
         return GestureDetector(
-          onTap: (){},
+          onTap: () {},
           child: NewTransaction(_addNewTransaction),
-          //catch touch event and avoid other using it. 
+          //catch touch event and avoid other using it.
           behavior: HitTestBehavior.opaque,
         );
       },
@@ -74,7 +76,7 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.title),
+        title: Text(widget.title, style: TextStyle(fontFamily: 'Open Sans'),),
         actions: <Widget>[
           IconButton(
             icon: Icon(Icons.add),
