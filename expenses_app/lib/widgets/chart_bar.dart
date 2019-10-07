@@ -5,11 +5,12 @@ class ChartBar extends StatelessWidget {
   final String label;
   final double spendingAmount;
   final double spendingPctOfTotal;
-
-  ChartBar(this.label, this.spendingAmount, this.spendingPctOfTotal);
+  // to make this a const constructor, the properties will need to be final.
+  const ChartBar(this.label, this.spendingAmount, this.spendingPctOfTotal);
 
   @override
   Widget build(BuildContext context) {
+    print('build() chartBar ');
     return LayoutBuilder(
       builder: (ctx, constraints) {
         return Column(
